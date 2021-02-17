@@ -8,9 +8,9 @@
     ORANGE="\033[1;33m"
 	
 # Messages customs
-    MSG_180="Une tempête approche, dans 3 minutes la ville sera rasé !"
-    MSG_60="Une tempête est aux portes de la ville, fuyez pauvres fous !"
-    MSG_30="Mon dieu !! Dans 30 secondes vous serez tous morts si vous ne fuyez pas !"
+    MSG_180="Ein Sturm nähert sich, in 3 Minuten wird die Stadt zerstört !"
+    MSG_60="Ein Sturm ist vor den Toren der Stadt, lauf weg arme Narren !"
+    MSG_30="Mein Gott !! In 30 Sekunden sind Sie alle tot, wenn Sie nicht weglaufen !"
 	
 # Path
     FIVEM_PATH=/home/FiveM
@@ -33,90 +33,90 @@ case "$1" in
     start)
 	if ( running )
 	then
-	    echo -e "$ROUGE Le serveur [$SCREEN] est deja démarrer !$NORMAL"
+	    echo -e "$ROUGE Der Server [$SCREEN] ist bereits gestartet !$NORMAL"
 	else
-		echo -e "$ROUGE Redémarrage de mysql !$NORMAL"
+		echo -e "$ROUGE MySQL wird neu gestartet !$NORMAL"
 		sudo service mysql restart
 		sleep 10
-        echo -e "$ORANGE Le serveur [$SCREEN] va démarrer.$NORMAL"
+		echo -e "$ORANGE Der Server [$SCREEN] wird gestartet. $NORMAL"
 		screen -dm -S $SCREEN
 		sleep 2
-		screen -x $SCREEN -X stuff "cd "$FIVEM_PATH"/server-data && bash "$FIVEM_PATH"/run.sh +exec server.cfg 
+		screen -x $SCREEN -X stuff "cd "$FIVEM_PATH"/server-data && bash "$FIVEM_PATH"/server/run.sh +exec server.cfg 
 		"
-		echo -e "$ORANGE Restart des sessions.$NORMAL"
+		echo -e "$ORANGE Starte den Sessionmanager neu $NORMAL"
 		sleep 20
 		screen -x $SCREEN -X stuff "restart sessionmanager
 		"
 		echo -e "$VERT Session Ok ! $NORMAL"
 		sleep 5
-		echo -e "$VERT Serveur Ok ! $NORMAL"
+		echo -e "$VERT Server Ok ! $NORMAL"
 	fi
     ;;
     # -----------------[ Stop ]------------------ #
     stop)
 	if ( running )
 	then
-		echo -e "$VERT Le serveur va être stoppé dans 10s. $NORMAL"
-        screen -S $SCREEN -p 0 -X stuff "`printf "say $MSG_30\r"`"; sleep 30
+		echo -e "$VERT Der Server wird in 10s gestoppt. $NORMAL"
+		screen -S $SCREEN -p 0 -X stuff "`printf "say $MSG_30\r"`"; sleep 30
 		screen -S $SCREEN -X quit
-        echo -e "$ROUGE Le serveur [$SCREEN] a été stopper.$NORMAL"
+		echo -e "$ROUGE Der Server [$SCREEN] wurde gestoppt. $NORMAL"
 		sleep 5
-		echo -e "$VERT Serveur [$SCREEN] eteint. $NORMAL"
+		echo -e "$VERT Server [$SCREEN] ist ausgeschaltet. $NORMAL"
 		rm -R $FIVEM_PATH/server-data/cache/
-		echo -e "$VERT Nettoyage du cache. $NORMAL"
+		echo -e "$VERT Cache wurde bereinigt. $NORMAL"
 
 	else
-	    echo -e "Le serveur [$SCREEN] n'est pas démarrer."
+	    echo -e "Der Server [$SCREEN] ist nicht gestartet."
 	fi
     ;;
     # ----------------[ Restart ]---------------- #
 	restart)
 	if ( running )
 	then
-	    echo -e "$ROUGE Le serveur [$SCREEN] fonctionne déja ! $NORMAL"
+	    echo -e "$ROUGE Der Server [$SCREEN] läuft bereits!  $NORMAL"
 	else
-	    echo -e "$VERT Le serveur [$SCREEN] est eteint. $NORMAL"
+	    echo -e "$VERT Der Server [$SCREEN] ist ausgeschaltet. $NORMAL"
 	fi
-	    echo -e "$ROUGE Le serveur va redémarrer... $NORMAL"
+	    echo -e "$ROUGE Der Server wird neu gestartet ... $NORMAL"
 		screen -S $SCREEN -p 0 -X stuff "`printf "say $MSG_180\r"`"; sleep 180
 		screen -S $SCREEN -p 0 -X stuff "`printf "say $MSG_60\r"`"; sleep 60
 		screen -S $SCREEN -p 0 -X stuff "`printf "say $MSG_30\r"`"; sleep 30
 		screen -S $SCREEN -X quit
-		echo -e "$VERT Serveur eteint $NORMAL"
+		echo -e "$VERT Der Server ist aus. $NORMAL"
 		rm -R $FIVEM_PATH/server-data/cache/
-		echo -e "$VERT Nettoyage du cache. $NORMAL"
+		echo -e "$VERT Cache wurde bereinigt. $NORMAL"
 		sleep 2
-		echo -e "$ORANGE Redémarrage en cours ... $NORMAL"
-		echo -e "$ROUGE Redémarrage de mysql !$NORMAL"
+		echo -e "$ORANGE Neustart läuft ... $NORMAL"
+		echo -e "$ROUGE MySQL wird neu gestartet !$NORMAL"
 		sudo service mysql restart
 		sleep 10
-        echo -e "$ORANGE Le serveur [$SCREEN] va démarrer.$NORMAL"
+		echo -e "$ORANGE Le serveur [$SCREEN] va démarrer.$NORMAL"
 		screen -dm -S $SCREEN
 		sleep 2
-		screen -x $SCREEN -X stuff "cd "$FIVEM_PATH"/server-data && bash "$FIVEM_PATH"/run.sh +exec server.cfg 
+		screen -x $SCREEN -X stuff "cd "$FIVEM_PATH"/server-data && bash "$FIVEM_PATH"/server/run.sh +exec server.cfg 
 		"
-		echo -e "$ORANGE Restart des sessions.$NORMAL"
+		echo -e "$ORANGE Starte den Sessionmanager neu $NORMAL"
 		sleep 20
 		screen -x $SCREEN -X stuff "restart sessionmanager
 		"
-		echo -e "$VERT Serveur [$SCREEN] démarrer ! $NORMAL"
+		echo -e "$VERT Serveur [$SCREEN] Start! $NORMAL"
 	;;	
     # -----------------[ Status ]---------------- #
 	status)
 	if ( running )
 	then
-	    echo -e "$VERT [$SCREEN] démarrer. $NORMAL"
+	    echo -e "$VERT Der Server [$SCREEN] läuft gerade. $NORMAL"
 	else
-	    echo -e "$ROUGE [$SCREEN]éteint. $NORMAL"
+	    echo -e "$ROUGE Der Server [$SCREEN] läuft zur zeit nicht. $NORMAL"
 	fi
 	;;
     # -----------------[ Screen ]---------------- #
     screen)
-        echo -e "$VERT Screen du serveur [$SCREEN]. $NORMAL"
+        echo -e "$VERT Starte Screen Session $NORMAL"
         screen -R $SCREEN
     ;;
 	*)
-    echo -e "$ORANGE Utilisation :$NORMAL ./manage.sh {start|stop|status|screen|restart}"
+    echo -e "$ORANGE Benutzung:$NORMAL ./manage.sh {start|stop|status|screen|restart}"
     exit 1
     ;;
 esac
