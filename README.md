@@ -2,4 +2,4 @@
 Upload to: 
 /home/username/
 # Usage: 
-$-: ./manage.sh {start|stop|kill|status|screen|restart}
+username@localhost ~ $: ./manage.sh {start|stop|kill|status|screen|restart}
